@@ -18,5 +18,7 @@ namespace BrotatoLike.Character
         public int weaponSlot;
         public int playerLevel;
         public int XPAmount;
+
+        public List<string> weaponsName = new List<string>();
     }
 }

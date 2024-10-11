@@ -17,5 +17,7 @@ namespace BrotatoLike.SOScripts
         public string weaponName;
         public Sprite weaponSprite;
         public Sprite bulletSprite;
+        public string weaponDesc;
+        public int weaponPrice;
     }
 }

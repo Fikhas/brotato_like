@@ -43,43 +43,42 @@ namespace BrotatoLike.Wave
 
         private void Update()
         {
-            if (isWaveRunning)
-            {
-                updateCD += Time.deltaTime;
-            }
-            if (updateCD > 1 && waveDuration > 0)
-            {
-                isSpawn = true;
-                waveDuration = waveDuration - 1;
-                durationText.text = $"00:{waveDuration}";
-                updateCD = 0;
-            }
+            // if (isWaveRunning)
+            // {
+            //     updateCD += Time.deltaTime;
+            // }
+            // if (updateCD > 1 && waveDuration > 0)
+            // {
+            //     isSpawn = true;
+            //     waveDuration = waveDuration - 1;
+            //     durationText.text = $"00:{waveDuration}";
+            //     updateCD = 0;
+            // }
 
-            if (waveDuration % 3 == 0)
-            {
-                if (isSpawn)
-                {
-                    SpawnEnemy.Instance.SpawnSkullslime(5);
-                    isSpawn = false;
-                }
-            }
+            // if (waveDuration % 3 == 0)
+            // {
+            //     if (isSpawn)
+            //     {
+            //         SpawnEnemy.Instance.SpawnSkullslime(5);
+            //         isSpawn = false;
+            //     }
+            // }
 
-            if (currentWave % 5 == 0)
-            {
-                bossCD += Time.deltaTime;
-                if (bossCD >= 10)
-                {
-                    SpawnEnemy.Instance.SpawnSlimelegion(1);
-                    bossCD = 0;
-                }
-            }
+            // if (currentWave % 5 == 0)
+            // {
+            //     bossCD += Time.deltaTime;
+            //     if (bossCD >= 10)
+            //     {
+            //         SpawnEnemy.Instance.SpawnSlimelegion(1);
+            //         bossCD = 0;
+            //     }
+            // }
 
-            if (waveDuration == 0)
-            {
-                ShopController.Instance.ShopAppear();
-                isWaveRunning = false;
-            }
-
+            // if (waveDuration == 0)
+            // {
+            //     ShopController.Instance.ShopAppear();
+            //     isWaveRunning = false;
+            // }
         }
     }
 }

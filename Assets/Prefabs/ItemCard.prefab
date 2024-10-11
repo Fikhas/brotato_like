@@ -417,8 +417,8 @@ GameObject:
   - component: {fileID: 8430066245915129218}
   - component: {fileID: 1621674292233790037}
   - component: {fileID: 6483881435702367560}
-  - component: {fileID: 1195253580646073409}
   - component: {fileID: 1576440693533661871}
+  - component: {fileID: 1195253580646073409}
   m_Layer: 0
   m_Name: ItemCard
   m_TagString: Untagged
@@ -486,6 +486,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1576440693533661871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6911816042944263356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e07a904dfd97784787e31349d208e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemImg: {fileID: 2419785644875753479}
+  titleText: {fileID: 6489350388883636387}
+  descText: {fileID: 7015847985720796425}
+  priceText: {fileID: 8074827973448769716}
 --- !u!114 &1195253580646073409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,23 +545,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6483881435702367560}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &1576440693533661871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6911816042944263356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e07a904dfd97784787e31349d208e7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemImg: {fileID: 2419785644875753479}
-  titleText: {fileID: 6489350388883636387}
-  descText: {fileID: 7015847985720796425}
-  priceText: {fileID: 8074827973448769716}
+      m_Calls:
+      - m_Target: {fileID: 1576440693533661871}
+        m_TargetAssemblyTypeName: BrotatoLike.Shop.CardScript, Assembly-CSharp
+        m_MethodName: BuyCard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7541204303285215758
 GameObject:
   m_ObjectHideFlags: 0

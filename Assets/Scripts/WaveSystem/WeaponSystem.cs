@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BrotatoLike.Character;
 using BrotatoLike.SOScripts;
 using UnityEngine;
 
@@ -20,16 +21,20 @@ namespace BrotatoLike.Weapon
             {
                 weaponPlace.tag = "Weapon";
             }
+
             SetWeapon("FireStaff");
-            SetWeapon("FireStaff");
-            SetWeapon("FireStaff");
+
+            // foreach (var weapon in CharController.Instance.model.weaponsName)
+            // {
+            //     SetWeapon(weapon);
+            // }
         }
 
         public void SetWeapon(string weaponName)
         {
             foreach (var weaponPlace in weaponPlaces)
             {
-                if (weaponPlace.CompareTag("Weapon"))
+                if (!weaponPlace.activeInHierarchy)
                 {
                     foreach (var weapon in weaponSO.weaponLists)
                     {

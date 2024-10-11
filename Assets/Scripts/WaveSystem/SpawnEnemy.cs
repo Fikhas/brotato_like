@@ -25,7 +25,7 @@ namespace BrotatoLike.Spawn
 
         private void Awake()
         {
-            SpawnSkullslime(5);
+            // SpawnSkullslime(5);
             Instance = this;
         }
 
