@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BrotatoLike.Character;
 using BrotatoLike.Pooling;
+using BrotatoLike.SOScripts;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -67,22 +68,18 @@ namespace BrotatoLike.Weapon
             {
                 isUnfire = false;
                 GameObject bulletActive = bullet.GetObject();
+                foreach (var weapon in WeaponSystem.Instance.weaponSO.weaponLists)
+                {
+                    if (weapon.weaponName == gameObject.tag)
+                    {
+                        bulletActive.GetComponent<SpriteRenderer>().sprite = weapon.bulletSprite;
+                    }
+                }
                 bulletActive.GetComponent<BulletScripts>().BulletDirect(DirectObsScript.Instance.direction);
                 bulletActive.transform.rotation = Quaternion.Euler(new Vector3(0, 0, DirectObsScript.Instance.currentRot - 90));
                 bulletActive.transform.position = bulletPos.position;
                 isCanShoot = false;
             }
-
-            // if (!isCanShoot)
-            // {
-            //     timer += Time.deltaTime;
-            //     if (timer > 0.2)
-            //     {
-            //         isCanShoot = true;
-            //         isUnfire = true;
-            //         timer = 0;
-            //     }
-            // }
 
             autoShootTimer += Time.deltaTime;
             if (autoShootTimer > 0.2)
@@ -103,6 +100,13 @@ namespace BrotatoLike.Weapon
                 float currentRot = angle;
 
                 GameObject bulletActive = bullet.GetObject();
+                foreach (var weapon in WeaponSystem.Instance.weaponSO.weaponLists)
+                {
+                    if (weapon.weaponName == gameObject.tag)
+                    {
+                        bulletActive.GetComponent<SpriteRenderer>().sprite = weapon.bulletSprite;
+                    }
+                }
                 bulletActive.GetComponent<BulletScripts>().BulletDirect(direction);
                 bulletActive.transform.rotation = Quaternion.Euler(new Vector3(0, 0, currentRot - 90));
                 bulletActive.transform.position = bulletPos.position;

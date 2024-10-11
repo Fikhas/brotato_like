@@ -65,6 +65,14 @@ namespace BrotatoLike.Enemy
                 SpawnEnemy.Instance.DestroyEnemy(gameObject);
             }
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                other.GetComponent<CharController>().SubHP(damage);
+            }
+        }
     }
 }
 

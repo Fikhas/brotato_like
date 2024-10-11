@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Numerics;
 using BrotatoLike.Weapon;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BrotatoLike.Character
 {
@@ -14,9 +16,15 @@ namespace BrotatoLike.Character
 
         [SerializeField]
         private Rigidbody2D rb;
+        [SerializeField]
+        private Slider slider;
+        [SerializeField]
+        private TMP_Text healthText;
 
-        private CharModel model;
-        private CharView view;
+        [HideInInspector]
+        public CharModel model;
+        [HideInInspector]
+        public CharView view;
         private float horizontalInput;
         private float verticalInput;
         private float manualShootCD;
@@ -26,6 +34,15 @@ namespace BrotatoLike.Character
             model = GetComponent<CharModel>();
             view = GetComponent<CharView>();
             Instance = this;
+            InitializeHPSlider();
+        }
+
+        private void InitializeHPSlider()
+        {
+            healthText.text = $"HP: {model.maxHealth}";
+            model.health = model.maxHealth;
+            slider.maxValue = model.maxHealth;
+            slider.value = model.maxHealth;
         }
 
         private void Update()
@@ -49,29 +66,35 @@ namespace BrotatoLike.Character
         public GameObject NearestWeapon(Vector3 enemyPos)
         {
             GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
-            GameObject weaponOn = null;
-            float nearestDistance = 99999999;
+
+            List<Transform> weaponPositions = new List<Transform>();
 
             foreach (var weapon in weapons)
             {
+                weaponPositions.Add(weapon.transform);
+            }
+
+            GameObject weaponOn = null;
+            float nearestDistance = 99999999;
+
+            foreach (var weaponPos in weaponPositions)
+            {
                 if (weaponOn != null)
                 {
-                    float distance = Vector3.Distance(weapon.transform.position, enemyPos);
+                    float distance = Vector3.Distance(weaponPos.position, enemyPos);
                     distance = Mathf.Abs(distance);
-                    Debug.Log($"Weapon: {weapon}, the distance is {distance}");
                     if (distance < nearestDistance)
                     {
                         nearestDistance = distance;
-                        weaponOn = weapon;
+                        weaponOn = weaponPos.gameObject;
                     }
                 }
                 else
                 {
-                    float distance = Vector3.Distance(weapon.transform.position, enemyPos);
+                    float distance = Vector3.Distance(weaponPos.position, enemyPos);
                     distance = Mathf.Abs(distance);
-                    Debug.Log($"Weapon: {weapon}, the distance is {distance}");
                     nearestDistance = distance;
-                    weaponOn = weapon;
+                    weaponOn = weaponPos.gameObject;
                 }
             }
 
@@ -85,7 +108,7 @@ namespace BrotatoLike.Character
 
             foreach (var weapon in weapons)
             {
-                if (weapon.GetComponent<WeaponScript>().isUnfire == true)
+                if (weapon.GetComponentInParent<WeaponScript>().isUnfire == true)
                 {
                     unfireWeapons.Add(weapon);
                 }
@@ -97,15 +120,17 @@ namespace BrotatoLike.Character
         public void AutoShoot(Vector3 enemyPos)
         {
             GameObject nearWeapon = NearestWeapon(enemyPos);
-            nearWeapon.GetComponent<WeaponScript>().direction = enemyPos - nearWeapon.transform.position;
-            nearWeapon.GetComponent<WeaponScript>().isFollowMouse = false;
-            nearWeapon.GetComponent<WeaponScript>().AutoShoot(enemyPos);
+            nearWeapon.GetComponentInParent<WeaponScript>().direction = enemyPos - nearWeapon.transform.position;
+            nearWeapon.GetComponentInParent<WeaponScript>().isFollowMouse = false;
+            nearWeapon.GetComponentInParent<WeaponScript>().AutoShoot(enemyPos);
             List<GameObject> unfireWeapons = UnfireWeapon();
             if (unfireWeapons.Count > 0)
             {
                 foreach (var unfireWeapon in unfireWeapons)
                 {
-                    unfireWeapon.GetComponent<WeaponScript>().AutoShoot(enemyPos);
+                    unfireWeapon.GetComponentInParent<WeaponScript>().isFollowMouse = false;
+                    unfireWeapon.GetComponentInParent<WeaponScript>().AutoShoot(enemyPos);
+                    unfireWeapon.GetComponentInParent<WeaponScript>().direction = enemyPos - nearWeapon.transform.position;
                 }
             }
         }
@@ -113,17 +138,41 @@ namespace BrotatoLike.Character
         public void ManualShoot(Vector3 mousePosition)
         {
             GameObject nearWeapon = NearestWeapon(mousePosition);
-            nearWeapon.GetComponent<WeaponScript>().isFollowMouse = true;
-            nearWeapon.GetComponent<WeaponScript>().isCanShoot = true;
+            nearWeapon.GetComponentInParent<WeaponScript>().isFollowMouse = true;
+            nearWeapon.GetComponentInParent<WeaponScript>().isCanShoot = true;
             List<GameObject> unfireWeapons = UnfireWeapon();
             if (unfireWeapons.Count > 0)
             {
                 foreach (var unfireWeapon in unfireWeapons)
                 {
-                    unfireWeapon.GetComponent<WeaponScript>().isFollowMouse = true;
-                    unfireWeapon.GetComponent<WeaponScript>().isCanShoot = true;
+                    unfireWeapon.GetComponentInParent<WeaponScript>().isFollowMouse = true;
+                    unfireWeapon.GetComponentInParent<WeaponScript>().isCanShoot = true;
+                    unfireWeapon.GetComponentInParent<WeaponScript>().direction = mousePosition - nearWeapon.transform.position;
                 }
             }
+        }
+
+        public void AddHP(float hpToAdd)
+        {
+            if (model.health == model.maxHealth)
+            {
+                return;
+            }
+            model.health += hpToAdd;
+            slider.value = model.health;
+            healthText.text = $"HP: {model.health}";
+        }
+
+        public void SubHP(float hpToSub)
+        {
+            if (model.health < 1)
+            {
+                return;
+            }
+
+            model.health -= hpToSub;
+            slider.value = model.health;
+            healthText.text = $"HP: {model.health}";
         }
     }
 }

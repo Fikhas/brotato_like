@@ -7,6 +7,9 @@ TagManager:
   - PlayerBullet
   - Enemy
   - Weapon
+  - FireStaff
+  - IceStaff
+  - LightningStaff
   layers:
   - Default
   - TransparentFX

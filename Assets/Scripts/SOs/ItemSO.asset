@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ab64c9bbfec3346a7ac24f2ee373ea, type: 3}
+  m_Name: ItemSO
+  m_EditorClassIdentifier: 
+  itemLists:
+  - itemName: BearHead
+    itemSprite: {fileID: 21300000, guid: 962dc3b34ed4c524f827923dafe5b4d2, type: 3}
+    itemPrice: 5
+    itemDescription: Health +1
+    itemEffects:
+    - effectFor: health
+      effectAmount: 1
+  - itemName: DemonHead
+    itemSprite: {fileID: 21300000, guid: 92c4fb60ee4036e4494c7b893ada72ec, type: 3}
+    itemPrice: 5
+    itemDescription: Damage +2%
+    itemEffects:
+    - effectFor: damage
+      effectAmount: 2
+  - itemName: ElfHead
+    itemSprite: {fileID: 21300000, guid: 3d1c9a505182b4f4e816603e873dbbc3, type: 3}
+    itemPrice: 15
+    itemDescription: Casting Speed +1, Damage -1
+    itemEffects:
+    - effectFor: castingSpeed
+      effectAmount: 1
+    - effectFor: damage
+      effectAmount: 1
+  - itemName: WolfLeg
+    itemSprite: {fileID: 21300000, guid: af47ea9be14eca24c95c6a92ec4846ae, type: 3}
+    itemPrice: 20
+    itemDescription: Move Speed +1
+    itemEffects:
+    - effectFor: moveSpeed
+      effectAmount: 1
+  - itemName: OrcHead
+    itemSprite: {fileID: 21300000, guid: aaeea71f32882b94082b91f42b7c913e, type: 3}
+    itemPrice: 50
+    itemDescription: Weapon Slot +1
+    itemEffects:
+    - effectFor: weaponSlot
+      effectAmount: 1
