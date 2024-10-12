@@ -33,7 +33,7 @@ namespace BrotatoLike.Shop
                 GameObject card = Instantiate(itemCard, cardParent.transform);
                 if (i == 0)
                 {
-                    int randomNumWeapon = Random.Range(0, 2);
+                    int randomNumWeapon = Random.Range(0, 3);
                     WeaponList item = weaponSO.weaponLists[randomNumWeapon];
                     card.GetComponent<CardScript>().itemImg.sprite = item.weaponSprite;
                     card.GetComponent<CardScript>().titleText.text = item.weaponName;
@@ -42,7 +42,7 @@ namespace BrotatoLike.Shop
                 }
                 else
                 {
-                    int randomNumItem = Random.Range(0, 4);
+                    int randomNumItem = Random.Range(0, 5);
                     ItemList item = itemSO.itemLists[randomNumItem];
                     card.GetComponent<CardScript>().itemImg.sprite = item.itemSprite;
                     card.GetComponent<CardScript>().titleText.text = item.itemName;

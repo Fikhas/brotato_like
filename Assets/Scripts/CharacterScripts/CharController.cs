@@ -47,20 +47,27 @@ namespace BrotatoLike.Character
 
         private void Update()
         {
-            manualShootCD += Time.deltaTime;
-            if (Input.GetMouseButton(0))
+            if (GameManager.Instance.gameState == GameState.Gameplay)
             {
-                if (manualShootCD > 0.2)
+                manualShootCD += Time.deltaTime;
+                if (Input.GetMouseButton(0))
                 {
-                    ManualShoot(Input.mousePosition);
-                    manualShootCD = 0;
+                    if (manualShootCD > 0.2)
+                    {
+                        ManualShoot(Input.mousePosition);
+                        manualShootCD = 0;
+                    }
                 }
+
+                horizontalInput = Input.GetAxis("Horizontal");
+                verticalInput = Input.GetAxis("Vertical");
+
+                rb.velocity = new Vector2(horizontalInput * model.moveSpeed, verticalInput * model.moveSpeed);
             }
-
-            horizontalInput = Input.GetAxis("Horizontal");
-            verticalInput = Input.GetAxis("Vertical");
-
-            rb.velocity = new Vector2(horizontalInput * model.moveSpeed, verticalInput * model.moveSpeed);
+            else
+            {
+                rb.velocity = new Vector2(0, 0);
+            }
         }
 
         public GameObject NearestWeapon(Vector3 enemyPos)
@@ -165,14 +172,14 @@ namespace BrotatoLike.Character
 
         public void SubHP(float hpToSub)
         {
-            if (model.health < 1)
-            {
-                return;
-            }
 
             model.health -= hpToSub;
             slider.value = model.health;
             healthText.text = $"HP: {model.health}";
+            if (model.health < 1)
+            {
+                PauseSystem.Instance.Gameover();
+            }
         }
     }
 }

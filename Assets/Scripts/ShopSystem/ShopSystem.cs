@@ -33,6 +33,7 @@ namespace BrotatoLike.Shop
             shopPanel.SetActive(true);
             GameShopConnector.Instance.InitializeShopPanel();
             WeaponsBoxScript.Instance.UpdateWeaponAmount();
+            WeaponSystem.Instance.WeaponOff();
         }
 
         public void ContinueWave()

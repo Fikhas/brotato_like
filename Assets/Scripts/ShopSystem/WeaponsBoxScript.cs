@@ -57,8 +57,9 @@ namespace BrotatoLike.Weapon
             Transform[] weapons = gameObject.GetComponentsInChildren<Transform>();
             foreach (var weapon in weapons)
             {
-                if (weapon.gameObject.name != "WeaponBox")
+                if (weapon.gameObject.name == "Weapon(Clone)")
                 {
+                    Debug.Log($"Request Weapon: {weapon.gameObject.name}");
                     WeaponSystem.Instance.SetWeapon(weapon.gameObject.tag);
                 }
             }

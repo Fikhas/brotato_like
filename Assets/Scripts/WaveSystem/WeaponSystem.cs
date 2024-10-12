@@ -21,13 +21,6 @@ namespace BrotatoLike.Weapon
             {
                 weaponPlace.tag = "Weapon";
             }
-
-            SetWeapon("FireStaff");
-
-            // foreach (var weapon in CharController.Instance.model.weaponsName)
-            // {
-            //     SetWeapon(weapon);
-            // }
         }
 
         public void SetWeapon(string weaponName)
@@ -44,9 +37,18 @@ namespace BrotatoLike.Weapon
                             weaponPlace.GetComponent<SpriteRenderer>().sprite = weapon.weaponSprite;
                             weaponPlace.tag = $"{weapon.weaponName}";
                             weaponPlace.SetActive(true);
+                            return;
                         }
                     }
                 }
+            }
+        }
+
+        public void WeaponOff()
+        {
+            foreach (var weaponPlace in weaponPlaces)
+            {
+                weaponPlace.SetActive(false);
             }
         }
     }

@@ -5,7 +5,9 @@ using UnityEngine;
 public enum GameState
 {
     Gameplay,
-    Shop
+    Shop,
+    Pause,
+    Gameover
 }
 public class GameManager : MonoBehaviour
 {

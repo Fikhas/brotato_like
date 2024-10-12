@@ -28,21 +28,24 @@ namespace BrotatoLike.Enemy
 
         private void Update()
         {
-            float distance = Vector3.Distance(transform.position, player.transform.position);
-            distance = Mathf.Abs(distance);
-
-            timer += Time.deltaTime;
-            if (distance < 5)
+            if (GameManager.Instance.gameState == GameState.Gameplay)
             {
-                if (timer > 0.2)
-                {
-                    player.GetComponent<CharController>().AutoShoot(gameObject.transform.position);
-                    timer = 0;
-                }
-            }
+                float distance = Vector3.Distance(transform.position, player.transform.position);
+                distance = Mathf.Abs(distance);
 
-            gameObject.GetComponent<BoxCollider2D>().size = gameObject.GetComponent<SpriteRenderer>().bounds.size;
-            gameObject.GetComponent<BoxCollider2D>().offset = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.center;
+                timer += Time.deltaTime;
+                if (distance < 5)
+                {
+                    if (timer > 0.2)
+                    {
+                        player.GetComponent<CharController>().AutoShoot(gameObject.transform.position);
+                        timer = 0;
+                    }
+                }
+
+                gameObject.GetComponent<BoxCollider2D>().size = gameObject.GetComponent<SpriteRenderer>().bounds.size;
+                gameObject.GetComponent<BoxCollider2D>().offset = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.center;
+            }
         }
 
         public void AddHP(float hpAdd)

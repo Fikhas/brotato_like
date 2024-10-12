@@ -42,7 +42,7 @@ namespace BrotatoLike.Coin
         {
             coinAmount += coinToAdd;
             coinText.text = $"Coin: {coinAmount}";
-            CharController.Instance.model.coin = coinAmount;
+            CharController.Instance.model.coin += coinAmount;
         }
     }
 }
