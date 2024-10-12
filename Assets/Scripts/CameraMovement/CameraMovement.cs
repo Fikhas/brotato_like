@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    public static CameraMovement Instance;
+
     [SerializeField]
     private Transform player;
     [SerializeField]
@@ -15,6 +17,11 @@ public class CameraMovement : MonoBehaviour
     private Vector2 min;
     [SerializeField]
     private Vector2 max;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void LateUpdate()
     {

@@ -18,13 +18,28 @@ MonoBehaviour:
     bulletSprite: {fileID: 21300000, guid: 544320d471aa5db43b6cda562f833534, type: 3}
     weaponDesc: Shoot Fire Ball
     weaponPrice: 0
+    baseDamage: 3
+    multiplierPercent: 1
+    areaDamageRadius: 3
+    critChance: 0
+    slowDuration: 0
   - weaponName: IceStaff
     weaponSprite: {fileID: 21300000, guid: dabc1532e42d4aa4d978c11f4359b842, type: 3}
     bulletSprite: {fileID: 21300000, guid: 8c740000c6828ad458d97864408c3520, type: 3}
     weaponDesc: Shoot Ice Spear
     weaponPrice: 0
+    baseDamage: 1
+    multiplierPercent: 1
+    areaDamageRadius: 0
+    critChance: 0
+    slowDuration: 3
   - weaponName: LightningStaff
     weaponSprite: {fileID: 21300000, guid: db7c82bd90574c645a34041c7a96b90f, type: 3}
     bulletSprite: {fileID: 21300000, guid: 109c236329af3a7468f2e6e0d78609a5, type: 3}
     weaponDesc: Shoot Energy Ball
     weaponPrice: 0
+    baseDamage: 1
+    multiplierPercent: 1
+    areaDamageRadius: 7
+    critChance: 5
+    slowDuration: 0

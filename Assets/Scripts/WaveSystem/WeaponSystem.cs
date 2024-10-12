@@ -20,12 +20,12 @@ namespace BrotatoLike.Weapon
             foreach (var weaponPlace in weaponPlaces)
             {
                 weaponPlace.tag = "Weapon";
+                weaponPlace.SetActive(false);
             }
         }
 
         public void SetWeapon(string weaponName)
         {
-            Debug.Log("Set Weapon Request " + weaponName);
             foreach (var weaponPlace in weaponPlaces)
             {
                 if (!weaponPlace.activeInHierarchy)
@@ -37,6 +37,7 @@ namespace BrotatoLike.Weapon
                             weaponPlace.GetComponent<SpriteRenderer>().sprite = weapon.weaponSprite;
                             weaponPlace.tag = $"{weapon.weaponName}";
                             weaponPlace.SetActive(true);
+                            CharController.Instance.model.weaponsName.Add(weapon.weaponName);
                             return;
                         }
                     }

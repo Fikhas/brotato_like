@@ -38,6 +38,7 @@ namespace BrotatoLike.Shop
                         if (image.gameObject.name == "Image")
                         {
                             image.sprite = item.itemSprite;
+                            image.GetComponentInParent<Transform>().gameObject.tag = item.itemName;
                         }
                     }
                 }

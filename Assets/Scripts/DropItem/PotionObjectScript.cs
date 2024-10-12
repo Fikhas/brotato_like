@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using BrotatoLike.Character;
 using UnityEngine;
 
-public class PotionObjectScript : MonoBehaviour
+namespace BrotatoLike.Potion
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PotionObjectScript : MonoBehaviour
     {
+        [SerializeField]
+        private int addHP;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                other.GetComponent<CharController>().AddHP(addHP);
+                PotionScript.Instance.ReturnPotion(gameObject);
+            }
+        }
     }
 }

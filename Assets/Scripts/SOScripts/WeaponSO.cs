@@ -19,5 +19,10 @@ namespace BrotatoLike.SOScripts
         public Sprite bulletSprite;
         public string weaponDesc;
         public int weaponPrice;
+        public int baseDamage;
+        public int multiplierPercent;
+        public float areaDamageRadius;
+        public float critChance;
+        public float slowDuration;
     }
 }

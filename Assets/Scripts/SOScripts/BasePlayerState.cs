@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using BrotatoLike.SOScripts;
 using UnityEngine;
 
-namespace BrotatoLike.Character
+namespace BrotatoLike.SOScripts
 {
-    public class CharModel : MonoBehaviour
+    [CreateAssetMenu(fileName = "BasePlayerState", menuName = "BasePlayerState")]
+    public class BasePlayerState : ScriptableObject
     {
         public int moveSpeed;
         public int castingSpeed;
@@ -22,7 +22,5 @@ namespace BrotatoLike.Character
         public int coin;
 
         public List<string> weaponsName = new List<string>();
-
-        public BasePlayerState basePlayerState;
     }
 }

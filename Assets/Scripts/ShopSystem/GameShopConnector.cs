@@ -37,5 +37,10 @@ namespace BrotatoLike.Shop
         {
             rerollText.text = $"Reroll ({coin} Coin)";
         }
+
+        public void UpdateCoinInfo()
+        {
+            coinInfo.text = $"Coin: {CharController.Instance.model.coin}";
+        }
     }
 }

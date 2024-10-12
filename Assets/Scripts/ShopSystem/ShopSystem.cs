@@ -1,5 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using BrotatoLike.Character;
+using BrotatoLike.Coin;
+using BrotatoLike.Enemy;
+using BrotatoLike.Potion;
+using BrotatoLike.Spawn;
 using BrotatoLike.Wave;
 using BrotatoLike.Weapon;
 using TMPro;
@@ -31,6 +36,8 @@ namespace BrotatoLike.Shop
                 WaveManager.Instance.currentWave += 1;
             }
             shopPanel.SetActive(true);
+            WeaponsBoxScript.Instance.InitializeWeaponShop();
+            CoinScript.Instance.AddCoinToPlayer();
             GameShopConnector.Instance.InitializeShopPanel();
             WeaponsBoxScript.Instance.UpdateWeaponAmount();
             WeaponSystem.Instance.WeaponOff();
@@ -38,11 +45,18 @@ namespace BrotatoLike.Shop
 
         public void ContinueWave()
         {
-            shopPanel.SetActive(false);
-            Debug.Log("Next Wave");
-            WaveManager.Instance.StartWave();
             GameManager.Instance.gameState = GameState.Gameplay;
+            shopPanel.SetActive(false);
+            WaveManager.Instance.StartWave();
+            CoinScript.Instance.ResetCoin();
             WeaponsBoxScript.Instance.AssignWeapon();
+            CharController.Instance.gameObject.transform.position = Vector2.zero;
+            CharController.Instance.UpdateHP();
+            SpawnEnemy.Instance.DestroyAllEnemy();
+            PotionScript.Instance.DestroyAllPotion();
+            CoinScript.Instance.DestroyAllCoin();
+            CameraMovement.Instance.gameObject.transform.position = new Vector3(0, 0, -10);
+            XPSystem.Instance.ResetXP();
         }
 
         public void ChangeMenuBox(string menuName)

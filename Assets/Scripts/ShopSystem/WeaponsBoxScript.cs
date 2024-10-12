@@ -27,7 +27,44 @@ namespace BrotatoLike.Weapon
             Instance = this;
         }
 
+        public void InitializeWeaponShop()
+        {
+            if (CharController.Instance.model.weaponsName.Count > 0)
+            {
+                for (int i = 0; i < CharController.Instance.model.weaponsName.Count; i++)
+                {
+                    UpdateWeapon(CharController.Instance.model.weaponsName[i]);
+                }
+            }
+        }
+
         public void AddWeapon(string weaponName)
+        {
+            if (weaponActiveAmount < CharController.Instance.model.weaponSlot)
+            {
+                GameObject newWeaponCard = Instantiate(weaponCard, transform);
+                weaponActiveAmount += 1;
+                foreach (var weapon in RandomItem.Instance.weaponSO.weaponLists)
+                {
+                    if (weapon.weaponName == weaponName)
+                    {
+                        Image[] cardChild = newWeaponCard.GetComponentsInChildren<Image>();
+                        foreach (var image in cardChild)
+                        {
+                            if (image.gameObject.name == "Image")
+                            {
+                                image.sprite = weapon.weaponSprite;
+                            }
+                            image.GetComponentInParent<Transform>().gameObject.tag = weapon.weaponName;
+                            CharController.Instance.model.weaponsName.Add(weapon.weaponName);
+                        }
+                    }
+                }
+                UpdateWeaponAmount();
+            }
+        }
+
+        public void UpdateWeapon(string weaponName)
         {
             if (weaponActiveAmount < CharController.Instance.model.weaponSlot)
             {

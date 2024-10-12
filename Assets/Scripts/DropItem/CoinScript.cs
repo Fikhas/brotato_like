@@ -24,7 +24,7 @@ namespace BrotatoLike.Coin
             coinAmount = 0;
         }
 
-        public void SpawnCoin(Vector2 coinPosition, int coinAmount)
+        public void SpawnCoin(Vector2 coinPosition, float coinAmount)
         {
             for (int i = 0; i < coinAmount; i++)
             {
@@ -42,7 +42,29 @@ namespace BrotatoLike.Coin
         {
             coinAmount += coinToAdd;
             coinText.text = $"Coin: {coinAmount}";
+        }
+
+        public void ResetCoin()
+        {
+            coinAmount = 0;
+            coinText.text = $"Coin: {coinAmount}";
+        }
+
+        public void AddCoinToPlayer()
+        {
             CharController.Instance.model.coin += coinAmount;
+        }
+
+        public void DestroyAllCoin()
+        {
+            Transform[] coins = gameObject.GetComponentsInChildren<Transform>();
+            foreach (var coin in coins)
+            {
+                if (coin.gameObject.name == "Coin(Clone)")
+                {
+                    coinPool.ReturnObject(coin.gameObject);
+                }
+            }
         }
     }
 }

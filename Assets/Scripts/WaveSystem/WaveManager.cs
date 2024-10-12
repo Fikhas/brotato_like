@@ -24,14 +24,13 @@ namespace BrotatoLike.Wave
 
         private float updateCD;
         private bool isSpawn;
+        private float delaySpawn;
         private float bossCD;
-        private bool isWaveRunning;
 
         private void Awake()
         {
             Instance = this;
             isSpawn = false;
-            isWaveRunning = true;
             updateCD = 0;
             durationText.text = $"00:{waveDuration}";
             waveAmountText.text = $"Wave: {currentWave}/{waveAmount}";
@@ -39,7 +38,6 @@ namespace BrotatoLike.Wave
 
         private void OnDisable()
         {
-            isWaveRunning = true;
             updateCD = 0;
         }
 
@@ -47,7 +45,11 @@ namespace BrotatoLike.Wave
         {
             if (GameManager.Instance.gameState == GameState.Gameplay)
             {
-                Debug.Log("Wave is counting down");
+                delaySpawn += Time.deltaTime;
+                if (delaySpawn > 3)
+                {
+                }
+
                 updateCD += Time.deltaTime;
                 if (updateCD > 1 && waveDuration > 0)
                 {
@@ -61,7 +63,7 @@ namespace BrotatoLike.Wave
                 {
                     if (isSpawn)
                     {
-                        SpawnEnemy.Instance.SpawnSkullslime(5);
+                        SpawnEnemy.Instance.RandomEnemy(currentWave);
                         isSpawn = false;
                     }
                 }
@@ -76,12 +78,16 @@ namespace BrotatoLike.Wave
                     }
                 }
 
-                if (waveDuration == 0)
+                if (currentWave == 20 && waveDuration < 1)
+                {
+                    PauseSystem.Instance.GameComplete();
+                }
+
+                if (waveDuration < 1)
                 {
                     ShopSystem.Instance.ShopActive();
-
-                    isWaveRunning = false;
                 }
+
             }
         }
 
@@ -90,6 +96,12 @@ namespace BrotatoLike.Wave
             waveDuration = 45;
             durationText.text = $"00:{waveDuration}";
             waveAmountText.text = $"Wave: {currentWave}/{waveAmount}";
+        }
+
+        public void ResetWave()
+        {
+            currentWave = 1;
+            waveDuration = 45;
         }
     }
 }

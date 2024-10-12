@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BrotatoLike.Weapon;
 using UnityEngine;
 
 public enum GameState
@@ -7,7 +8,9 @@ public enum GameState
     Gameplay,
     Shop,
     Pause,
-    Gameover
+    Gameover,
+    ChooseWeapon,
+    GameComplete
 }
 public class GameManager : MonoBehaviour
 {
@@ -17,5 +20,11 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        gameState = GameState.ChooseWeapon;
+    }
+
+    private void Start()
+    {
+        ChooseWeapon.Instance.ChooseWeaponOn();
     }
 }

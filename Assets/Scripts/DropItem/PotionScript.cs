@@ -3,20 +3,48 @@ using System.Collections.Generic;
 using BrotatoLike.Pooling;
 using UnityEngine;
 
-public class PotionScript : MonoBehaviour
+namespace BrotatoLike.Potion
 {
-    [SerializeField]
-    private ObjectPool potionObject;
-    [SerializeField]
-    private float dropChance;
-
-    public void DropPotion(Transform potionPos)
+    public class PotionScript : MonoBehaviour
     {
-        float potionDrop = Random.Range(0f, 100f);
+        public static PotionScript Instance;
 
-        if (potionDrop <= dropChance)
+        [SerializeField]
+        private ObjectPool potionObject;
+        [SerializeField]
+        private float dropChance;
+
+        private void Awake()
         {
-            Instantiate(potionObject, potionPos.position, Quaternion.identity);
+            Instance = this;
+        }
+
+        public void DropPotion(Transform potionPos)
+        {
+            float potionDrop = Random.Range(0f, 100f);
+
+            if (potionDrop <= dropChance)
+            {
+                GameObject newPotion = potionObject.GetObject();
+                newPotion.transform.position = potionPos.position;
+            }
+        }
+
+        public void ReturnPotion(GameObject potion)
+        {
+            potionObject.ReturnObject(potion);
+        }
+
+        public void DestroyAllPotion()
+        {
+            Transform[] potions = gameObject.GetComponentsInChildren<Transform>();
+            foreach (var potion in potions)
+            {
+                if (potion.gameObject.name == "Potion(Clone)")
+                {
+                    potionObject.ReturnObject(potion.gameObject);
+                }
+            }
         }
     }
 }

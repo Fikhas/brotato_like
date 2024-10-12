@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+
 // using System.Numerics;
 using BrotatoLike.Enemy;
 using BrotatoLike.Pooling;
@@ -25,7 +27,6 @@ namespace BrotatoLike.Spawn
 
         private void Awake()
         {
-            SpawnSkullslime(5);
             Instance = this;
         }
 
@@ -44,6 +45,7 @@ namespace BrotatoLike.Spawn
                         enemyObject.GetComponent<EnemyScript>().hp = enemy.hp;
                         enemyObject.GetComponent<EnemyScript>().damage = enemy.damage;
                         enemyObject.GetComponent<EnemyScript>().coin = enemy.coin;
+                        enemyObject.tag = "Ghost";
                         enemyObject.transform.localScale = enemy.scale;
                     }
                 }
@@ -65,6 +67,7 @@ namespace BrotatoLike.Spawn
                         enemyObject.GetComponent<EnemyScript>().hp = enemy.hp;
                         enemyObject.GetComponent<EnemyScript>().damage = enemy.damage;
                         enemyObject.GetComponent<EnemyScript>().coin = enemy.coin;
+                        enemyObject.tag = "Skullslime";
                         enemyObject.transform.localScale = enemy.scale;
                     }
                 }
@@ -86,6 +89,7 @@ namespace BrotatoLike.Spawn
                         enemyObject.GetComponent<EnemyScript>().hp = enemy.hp;
                         enemyObject.GetComponent<EnemyScript>().damage = enemy.damage;
                         enemyObject.GetComponent<EnemyScript>().coin = enemy.coin;
+                        enemyObject.tag = "RedSkullslime";
                         enemyObject.transform.localScale = enemy.scale;
                     }
                 }
@@ -108,8 +112,47 @@ namespace BrotatoLike.Spawn
                         enemyObject.GetComponent<EnemyScript>().damage = enemy.damage;
                         enemyObject.GetComponent<EnemyScript>().coin = enemy.coin;
                         enemyObject.AddComponent<Slimelegion>();
+                        enemyObject.tag = "Slimelegion";
                         enemyObject.transform.localScale = enemy.scale;
                     }
+                }
+            }
+        }
+
+        public void RandomEnemy(int waveNumber)
+        {
+            string enemyUnit = "";
+            if (waveNumber % 2 == 0)
+            {
+                enemyUnit = "Skullslime";
+            }
+            else
+            {
+                enemyUnit = "Ghost";
+            }
+
+            int randomSizeGroup = 0;
+            if (enemyUnit == "Skullslime")
+            {
+                randomSizeGroup = Random.Range(1 + waveNumber, 4 + waveNumber);
+            }
+            else
+            {
+                randomSizeGroup = Random.Range(4 + waveNumber, 8 + waveNumber);
+            }
+
+            int ghostChance = 70 - waveNumber;
+            int skullslimeChance = 30 + waveNumber;
+            for (int i = 0; i < randomSizeGroup; i++)
+            {
+                int randomNum = Random.Range(1, 100);
+                if (randomNum < skullslimeChance)
+                {
+                    SpawnSkullslime(1);
+                }
+                else if (randomNum > skullslimeChance)
+                {
+                    SpawnGhost(1);
                 }
             }
         }
@@ -121,6 +164,18 @@ namespace BrotatoLike.Spawn
                 Destroy(objectReturn.GetComponent<Slimelegion>());
             }
             enemyPool.ReturnObject(objectReturn);
+        }
+
+        public void DestroyAllEnemy()
+        {
+            Transform[] enemies = gameObject.GetComponentsInChildren<Transform>();
+            foreach (var enemy in enemies)
+            {
+                if (enemy.gameObject.name != "SpawnEnemy")
+                {
+                    DestroyEnemy(enemy.gameObject);
+                }
+            }
         }
     }
 }

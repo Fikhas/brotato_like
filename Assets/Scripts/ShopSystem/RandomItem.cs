@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BrotatoLike.Character;
 using BrotatoLike.SOScripts;
 using UnityEngine;
 
@@ -39,6 +40,7 @@ namespace BrotatoLike.Shop
                     card.GetComponent<CardScript>().titleText.text = item.weaponName;
                     card.GetComponent<CardScript>().descText.text = item.weaponDesc;
                     card.GetComponent<CardScript>().priceText.text = $"{item.weaponPrice} Coins";
+                    card.GetComponent<CardScript>().price = item.weaponPrice;
                 }
                 else
                 {
@@ -48,24 +50,30 @@ namespace BrotatoLike.Shop
                     card.GetComponent<CardScript>().titleText.text = item.itemName;
                     card.GetComponent<CardScript>().descText.text = item.itemDescription;
                     card.GetComponent<CardScript>().priceText.text = $"{item.itemPrice} Coins";
+                    card.GetComponent<CardScript>().price = item.itemPrice;
                 }
             }
         }
 
         public void Reroll()
         {
-            Transform[] cardInstances = cardParent.GetComponentsInChildren<Transform>();
-            foreach (var item in cardInstances)
+            if (rerollPrice < CharController.Instance.model.coin)
             {
-                if (item.gameObject.name == "ItemCards")
+                Transform[] cardInstances = cardParent.GetComponentsInChildren<Transform>();
+                foreach (var item in cardInstances)
                 {
-                    continue;
+                    if (item.gameObject.name == "ItemCards")
+                    {
+                        continue;
+                    }
+                    Destroy(item.gameObject);
                 }
-                Destroy(item.gameObject);
+                CharController.Instance.model.coin -= rerollPrice;
+                GameShopConnector.Instance.UpdateRerollPrice(2 * rerollPrice);
+                rerollPrice = 2 * rerollPrice;
+                ItemRandomize();
+                GameShopConnector.Instance.UpdateCoinInfo();
             }
-            GameShopConnector.Instance.UpdateRerollPrice(2 * rerollPrice);
-            rerollPrice = 2 * rerollPrice;
-            ItemRandomize();
         }
 
         public void Restock(string restockItem)

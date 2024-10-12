@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using BrotatoLike.Character;
 using BrotatoLike.Coin;
+using BrotatoLike.Potion;
 using BrotatoLike.Spawn;
+using BrotatoLike.Wave;
 using BrotatoLike.Weapon;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BrotatoLike.Enemy
@@ -64,7 +67,8 @@ namespace BrotatoLike.Enemy
         {
             if (hp < 1)
             {
-                CoinScript.Instance.SpawnCoin(transform.position, 3);
+                CoinScript.Instance.SpawnCoin(transform.position, coin);
+                PotionScript.Instance.DropPotion(transform);
                 SpawnEnemy.Instance.DestroyEnemy(gameObject);
             }
         }
@@ -73,7 +77,22 @@ namespace BrotatoLike.Enemy
         {
             if (other.CompareTag("Player"))
             {
-                other.GetComponent<CharController>().SubHP(damage);
+                if (gameObject.tag == "Ghost")
+                {
+                    other.GetComponent<CharController>().SubHP(1 + (WaveManager.Instance.currentWave / 5));
+                }
+                else if (gameObject.tag == "Skullslime")
+                {
+                    other.GetComponent<CharController>().SubHP(5 + (WaveManager.Instance.currentWave / 3));
+                }
+                else if (gameObject.tag == "RedSkullslime")
+                {
+                    other.GetComponent<CharController>().SubHP(1 + (WaveManager.Instance.currentWave / 3));
+                }
+                else if (gameObject.tag == "Slimelegion")
+                {
+                    other.GetComponent<CharController>().SubHP(10 + WaveManager.Instance.currentWave);
+                }
             }
         }
     }

@@ -11,6 +11,15 @@ TagManager:
   - IceStaff
   - LightningStaff
   - WaveManager
+  - DemonHead
+  - BearHead
+  - ElfHead
+  - WolfLeg
+  - OrcHead
+  - Ghost
+  - Skullslime
+  - RedSkullslime
+  - Slimelegion
   layers:
   - Default
   - TransparentFX

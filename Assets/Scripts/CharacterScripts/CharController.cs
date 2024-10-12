@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using BrotatoLike.SOScripts;
+
 // using System.Numerics;
 using BrotatoLike.Weapon;
 using TMPro;
@@ -39,10 +41,9 @@ namespace BrotatoLike.Character
 
         private void InitializeHPSlider()
         {
-            healthText.text = $"HP: {model.maxHealth}";
-            model.health = model.maxHealth;
-            slider.maxValue = model.maxHealth;
-            slider.value = model.maxHealth;
+            healthText.text = $"HP: {model.health}";
+            slider.maxValue = model.health;
+            slider.value = model.health;
         }
 
         private void Update()
@@ -161,11 +162,11 @@ namespace BrotatoLike.Character
 
         public void AddHP(float hpToAdd)
         {
-            if (model.health == model.maxHealth)
-            {
-                return;
-            }
             model.health += hpToAdd;
+            if (model.health > model.maxHealth)
+            {
+                model.health = 10;
+            }
             slider.value = model.health;
             healthText.text = $"HP: {model.health}";
         }
@@ -180,6 +181,32 @@ namespace BrotatoLike.Character
             {
                 PauseSystem.Instance.Gameover();
             }
+        }
+
+        public void UpdateHP()
+        {
+            model.health = model.maxHealth;
+            slider.maxValue = model.maxHealth;
+            slider.value = model.health;
+        }
+
+        public void ResetPlayerState()
+        {
+            BasePlayerState basePlayerState = model.basePlayerState;
+            model.moveSpeed = basePlayerState.moveSpeed;
+            model.castingSpeed = basePlayerState.castingSpeed;
+            model.health = basePlayerState.health;
+            model.maxHealth = basePlayerState.maxHealth;
+            model.damage = basePlayerState.damage;
+            model.fireDamage = basePlayerState.fireDamage;
+            model.iceDamage = basePlayerState.iceDamage;
+            model.lightningDamage = basePlayerState.lightningDamage;
+            model.critChance = basePlayerState.critChance;
+            model.weaponSlot = basePlayerState.weaponSlot;
+            model.playerLevel = basePlayerState.playerLevel;
+            model.XPAmount = basePlayerState.XPAmount;
+            model.coin = basePlayerState.coin;
+            model.weaponsName = basePlayerState.weaponsName;
         }
     }
 }

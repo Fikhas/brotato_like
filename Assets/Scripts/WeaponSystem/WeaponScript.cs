@@ -75,6 +75,7 @@ namespace BrotatoLike.Weapon
                         if (weapon.weaponName == gameObject.tag)
                         {
                             bulletActive.GetComponent<SpriteRenderer>().sprite = weapon.bulletSprite;
+                            bulletActive.gameObject.tag = weapon.weaponName;
                         }
                     }
                     bulletActive.GetComponent<BulletScripts>().BulletDirect(DirectObsScript.Instance.direction);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Search;
+// using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +37,14 @@ namespace BrotatoLike.Character
             slider.value = currentXP;
         }
 
+        public void ResetXP()
+        {
+            currentLevel = CharController.Instance.model.playerLevel;
+            currentXP = CharController.Instance.model.XPAmount;
+            levelText.text = $"Level {currentLevel}";
+            slider.value = currentXP;
+        }
+
         public void UpdateXP(int xpToAdd)
         {
             currentXP += xpToAdd;
@@ -50,7 +58,9 @@ namespace BrotatoLike.Character
                 maxXP = currentLevel * 10;
                 slider.maxValue = maxXP;
                 slider.value = currentXP;
+                CharController.Instance.model.playerLevel = currentLevel;
             }
+            CharController.Instance.model.XPAmount = currentXP;
         }
     }
 }
