@@ -11,6 +11,7 @@ namespace BrotatoLike.Shop
 
         public ItemSO itemSO;
         public WeaponSO weaponSO;
+        public int rerollPrice;
 
         [SerializeField]
         private GameObject cardParent;
@@ -62,6 +63,8 @@ namespace BrotatoLike.Shop
                 }
                 Destroy(item.gameObject);
             }
+            GameShopConnector.Instance.UpdateRerollPrice(2 * rerollPrice);
+            rerollPrice = 2 * rerollPrice;
             ItemRandomize();
         }
 

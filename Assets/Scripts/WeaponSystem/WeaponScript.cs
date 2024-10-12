@@ -33,7 +33,6 @@ namespace BrotatoLike.Weapon
         {
             isFollowMouse = true;
             Instance = this;
-            isCanShoot = true;
             isUnfire = false;
         }
 

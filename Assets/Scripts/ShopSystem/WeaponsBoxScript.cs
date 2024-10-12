@@ -19,31 +19,20 @@ namespace BrotatoLike.Weapon
         private TMP_Text amountText;
 
         private int weaponSlot;
+        private int weaponActiveAmount = 0;
 
         private void Awake()
         {
+            weaponActiveAmount = 0;
             Instance = this;
         }
 
         public void AddWeapon(string weaponName)
         {
-            Transform[] weaponsActive = transform.GetComponentsInChildren<Transform>();
-            int weaponActiveAmount = 0;
-            foreach (var weaponActive in weaponsActive)
-            {
-                if (weaponActive.gameObject.name.Contains("WeaponsBox"))
-                {
-                    continue;
-                }
-                if (weaponActive.gameObject.name.Contains("Weapon"))
-                {
-                    weaponActiveAmount += 1;
-                }
-            }
-
             if (weaponActiveAmount < CharController.Instance.model.weaponSlot)
             {
                 GameObject newWeaponCard = Instantiate(weaponCard, transform);
+                weaponActiveAmount += 1;
                 foreach (var weapon in RandomItem.Instance.weaponSO.weaponLists)
                 {
                     if (weapon.weaponName == weaponName)
@@ -55,10 +44,28 @@ namespace BrotatoLike.Weapon
                             {
                                 image.sprite = weapon.weaponSprite;
                             }
+                            image.GetComponentInParent<Transform>().gameObject.tag = weapon.weaponName;
                         }
                     }
                 }
+                UpdateWeaponAmount();
             }
+        }
+
+        public void AssignWeapon()
+        {
+            Transform[] weapons = gameObject.GetComponentsInChildren<Transform>();
+            foreach (var weapon in weapons)
+            {
+                if (weapon.gameObject.name != "WeaponBox")
+                {
+                    WeaponSystem.Instance.SetWeapon(weapon.gameObject.tag);
+                }
+            }
+        }
+
+        public void UpdateWeaponAmount()
+        {
             amountText.text = $"Weapons({weaponActiveAmount}/{CharController.Instance.model.weaponSlot})";
         }
     }

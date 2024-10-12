@@ -17,46 +17,32 @@ namespace BrotatoLike.Shop
         private TMP_Text amountText;
 
         private int weaponSlot;
+        private int itemActiveAmount;
 
         private void Awake()
         {
+            itemActiveAmount = 0;
             Instance = this;
         }
         public void AddItem(string itemName)
         {
-            Transform[] itemsActive = transform.GetComponentsInChildren<Transform>();
-            int itemActiveAmount = 0;
-            foreach (var itemActive in itemsActive)
+            GameObject newItemCard = Instantiate(itemCard, transform);
+            itemActiveAmount += 1;
+            foreach (var item in RandomItem.Instance.itemSO.itemLists)
             {
-                if (itemActive.gameObject.name.Contains("WeaponsBox"))
+                if (item.itemName == itemName)
                 {
-                    continue;
-                }
-                if (itemActive.gameObject.name.Contains("Weapon"))
-                {
-                    itemActiveAmount += 1;
-                }
-            }
-
-            if (itemActiveAmount < CharController.Instance.model.weaponSlot)
-            {
-                GameObject newItemCard = Instantiate(itemCard, transform);
-                foreach (var item in RandomItem.Instance.itemSO.itemLists)
-                {
-                    if (item.itemName == itemName)
+                    Image[] cardChild = newItemCard.GetComponentsInChildren<Image>();
+                    foreach (var image in cardChild)
                     {
-                        Image[] cardChild = newItemCard.GetComponentsInChildren<Image>();
-                        foreach (var image in cardChild)
+                        if (image.gameObject.name == "Image")
                         {
-                            if (image.gameObject.name == "Image")
-                            {
-                                image.sprite = item.itemSprite;
-                            }
+                            image.sprite = item.itemSprite;
                         }
                     }
                 }
             }
-            amountText.text = $"Items({itemActiveAmount}))";
+            amountText.text = $"Items({itemActiveAmount})";
         }
     }
 }

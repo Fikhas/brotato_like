@@ -13,6 +13,9 @@ public class EnemyWalk : MonoBehaviour
 
     private void Update()
     {
-        gameObject.transform.position = Vector2.MoveTowards(transform.position, player.transform.position, 5 * Time.deltaTime);
+        if (GameManager.Instance.gameState == GameState.Gameplay)
+        {
+            gameObject.transform.position = Vector2.MoveTowards(transform.position, player.transform.position, 5 * Time.deltaTime);
+        }
     }
 }
