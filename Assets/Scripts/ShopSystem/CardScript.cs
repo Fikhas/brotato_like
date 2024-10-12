@@ -27,6 +27,7 @@ namespace BrotatoLike.Shop
             else
             {
                 RandomItem.Instance.Restock("attach");
+                ItemsBoxScript.Instance.AddItem(titleText.text);
             }
             Destroy(gameObject);
         }

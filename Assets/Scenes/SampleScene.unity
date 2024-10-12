@@ -683,16 +683,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1544471025}
-        m_TargetAssemblyTypeName: BrotatoLike.Shop.ShopController, Assembly-CSharp
-        m_MethodName: ShopDisapper
-        m_Mode: 1
+      - m_Target: {fileID: 798629431}
+        m_TargetAssemblyTypeName: BrotatoLike.Shop.ShopSystem, Assembly-CSharp
+        m_MethodName: ChangeMenuBox
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: WeaponsBox
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &119317934
@@ -1159,8 +1159,8 @@ RectTransform:
   - {fileID: 252627563}
   - {fileID: 396117540}
   - {fileID: 1217332521}
-  - {fileID: 1309082896}
   - {fileID: 255838585}
+  - {fileID: 1309082896}
   - {fileID: 1427937537}
   m_Father: {fileID: 1558691784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1349,6 +1349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 255838585}
+  - component: {fileID: 255838588}
   - component: {fileID: 255838586}
   - component: {fileID: 255838587}
   m_Layer: 0
@@ -1414,6 +1415,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCard: {fileID: 5966594170270220490, guid: bc1229d37b566c846abe0bc87dfa1262, type: 3}
+  amountText: {fileID: 1259373551}
+--- !u!225 &255838588
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255838584}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &274191744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,16 +1797,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1544471025}
-        m_TargetAssemblyTypeName: BrotatoLike.Shop.ShopController, Assembly-CSharp
-        m_MethodName: ShopDisapper
-        m_Mode: 1
+      - m_Target: {fileID: 798629431}
+        m_TargetAssemblyTypeName: BrotatoLike.Shop.ShopSystem, Assembly-CSharp
+        m_MethodName: ChangeMenuBox
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: ItemsBox
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &329713620
@@ -3065,8 +3079,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 798629430}
+  - component: {fileID: 798629431}
   m_Layer: 0
-  m_Name: ShopSystem
+  m_Name: ShopManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3088,6 +3103,21 @@ Transform:
   - {fileID: 1227679967}
   m_Father: {fileID: 1104825821}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &798629431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798629429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc92eb7d5cc490d4ca9ac58ac9962392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuBoxes:
+  - {fileID: 1309082895}
+  - {fileID: 255838584}
 --- !u!1 &825307084
 GameObject:
   m_ObjectHideFlags: 0
@@ -3360,7 +3390,7 @@ GameObject:
   - component: {fileID: 1132077543}
   - component: {fileID: 1132077542}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: ItemText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3753,10 +3783,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb451727f9266f742917feac8b4397e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardParent: {fileID: 1816949518}
-  itemCard: {fileID: 6911816042944263356, guid: 79254ae814bd5b54b869db6e32e2ac0c, type: 3}
   itemSO: {fileID: 11400000, guid: 5fcccddb1bcd7fa46b6adf1d78b93885, type: 2}
   weaponSO: {fileID: 11400000, guid: 4742230259223484fb62287bd165f11d, type: 2}
+  cardParent: {fileID: 1816949518}
+  itemCard: {fileID: 6911816042944263356, guid: 79254ae814bd5b54b869db6e32e2ac0c, type: 3}
   maxRandomItem: 3
 --- !u!1 &1259373549
 GameObject:
@@ -3770,7 +3800,7 @@ GameObject:
   - component: {fileID: 1259373552}
   - component: {fileID: 1259373551}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: WeaponText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3977,7 +4007,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1309082896}
+  - component: {fileID: 1309082899}
   - component: {fileID: 1309082897}
+  - component: {fileID: 1309082898}
   m_Layer: 0
   m_Name: ItemsBox
   m_TagString: Untagged
@@ -4028,6 +4060,32 @@ MonoBehaviour:
   m_Spacing: {x: 20, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &1309082898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309082895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fdeaaa0fa00d344fa5553e6679c83d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemCard: {fileID: 5966594170270220490, guid: c267c521b5c93814982005f758b36f44, type: 3}
+  amountText: {fileID: 1132077542}
+--- !u!225 &1309082899
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309082895}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1378537115
 GameObject:
   m_ObjectHideFlags: 0

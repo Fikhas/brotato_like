@@ -9,14 +9,13 @@ namespace BrotatoLike.Shop
     {
         public static RandomItem Instance;
 
+        public ItemSO itemSO;
+        public WeaponSO weaponSO;
+
         [SerializeField]
         private GameObject cardParent;
         [SerializeField]
         private GameObject itemCard;
-        [SerializeField]
-        private ItemSO itemSO;
-        [SerializeField]
-        private WeaponSO weaponSO;
         [SerializeField]
         private int maxRandomItem;
 

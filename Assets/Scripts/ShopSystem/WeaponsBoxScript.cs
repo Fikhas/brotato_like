@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using BrotatoLike.Character;
+using BrotatoLike.Shop;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +15,8 @@ namespace BrotatoLike.Weapon
 
         [SerializeField]
         private GameObject weaponCard;
+        [SerializeField]
+        private TMP_Text amountText;
 
         private int weaponSlot;
 
@@ -40,11 +44,10 @@ namespace BrotatoLike.Weapon
             if (weaponActiveAmount < CharController.Instance.model.weaponSlot)
             {
                 GameObject newWeaponCard = Instantiate(weaponCard, transform);
-                foreach (var weapon in WeaponSystem.Instance.weaponSO.weaponLists)
+                foreach (var weapon in RandomItem.Instance.weaponSO.weaponLists)
                 {
                     if (weapon.weaponName == weaponName)
                     {
-                        Debug.Log(weaponName + "&" + weapon.weaponName);
                         Image[] cardChild = newWeaponCard.GetComponentsInChildren<Image>();
                         foreach (var image in cardChild)
                         {
@@ -56,6 +59,7 @@ namespace BrotatoLike.Weapon
                     }
                 }
             }
+            amountText.text = $"Weapons({weaponActiveAmount}/{CharController.Instance.model.weaponSlot})";
         }
     }
 }
