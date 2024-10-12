@@ -41,9 +41,9 @@ namespace BrotatoLike.Character
 
         private void InitializeHPSlider()
         {
-            healthText.text = $"HP: {model.health}";
             slider.maxValue = model.health;
             slider.value = model.health;
+            healthText.text = $"HP: {model.health}";
         }
 
         private void Update()
@@ -165,7 +165,7 @@ namespace BrotatoLike.Character
             model.health += hpToAdd;
             if (model.health > model.maxHealth)
             {
-                model.health = 10;
+                model.health = model.maxHealth;
             }
             slider.value = model.health;
             healthText.text = $"HP: {model.health}";
@@ -188,6 +188,7 @@ namespace BrotatoLike.Character
             model.health = model.maxHealth;
             slider.maxValue = model.maxHealth;
             slider.value = model.health;
+            healthText.text = $"HP: {model.health}";
         }
 
         public void ResetPlayerState()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BrotatoLike.Character;
+using BrotatoLike.Weapon;
 using UnityEngine;
 
 namespace BrotatoLike.Shop
@@ -29,6 +30,7 @@ namespace BrotatoLike.Shop
                 case "OrcHead":
                     CharController.Instance.model.weaponSlot += 1;
                     CharController.Instance.model.moveSpeed -= 1;
+                    WeaponsBoxScript.Instance.UpdateWeaponAmount();
                     break;
                 default:
                     break;
