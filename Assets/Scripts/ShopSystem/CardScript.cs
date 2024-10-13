@@ -25,16 +25,18 @@ namespace BrotatoLike.Shop
             {
                 if (titleText.text == "FireStaff" || titleText.text == "IceStaff" || titleText.text == "LightningStaff")
                 {
+                    CharController.Instance.model.coin -= price;
+                    Debug.Log("Buy Weapon, The Rest of Money is: " + CharController.Instance.model.coin);
                     RandomItem.Instance.Restock("weapon");
                     WeaponsBoxScript.Instance.AddWeapon(titleText.text);
-                    CharController.Instance.model.coin -= price;
                     GameShopConnector.Instance.UpdateCoinInfo();
                 }
                 else
                 {
+                    CharController.Instance.model.coin -= price;
+                    Debug.Log("Buy Attach, The Rest of Money is: " + CharController.Instance.model.coin);
                     RandomItem.Instance.Restock("attach");
                     ItemsBoxScript.Instance.AddItem(titleText.text);
-                    CharController.Instance.model.coin -= price;
                     GameShopConnector.Instance.UpdateCoinInfo();
                 }
                 Destroy(gameObject);

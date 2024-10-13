@@ -57,7 +57,7 @@ namespace BrotatoLike.Shop
 
         public void Reroll()
         {
-            if (rerollPrice < CharController.Instance.model.coin)
+            if (rerollPrice <= CharController.Instance.model.coin)
             {
                 Transform[] cardInstances = cardParent.GetComponentsInChildren<Transform>();
                 foreach (var item in cardInstances)
@@ -88,6 +88,7 @@ namespace BrotatoLike.Shop
                     card.GetComponent<CardScript>().itemImg.sprite = item.weaponSprite;
                     card.GetComponent<CardScript>().titleText.text = item.weaponName;
                     card.GetComponent<CardScript>().descText.text = item.weaponDesc;
+                    card.GetComponent<CardScript>().price = item.weaponPrice;
                     card.GetComponent<CardScript>().priceText.text = $"{item.weaponPrice} Coins";
                 }
                 else
@@ -97,6 +98,7 @@ namespace BrotatoLike.Shop
                     card.GetComponent<CardScript>().itemImg.sprite = item.itemSprite;
                     card.GetComponent<CardScript>().titleText.text = item.itemName;
                     card.GetComponent<CardScript>().descText.text = item.itemDescription;
+                    card.GetComponent<CardScript>().price = item.itemPrice;
                     card.GetComponent<CardScript>().priceText.text = $"{item.itemPrice} Coins";
                 }
             }
